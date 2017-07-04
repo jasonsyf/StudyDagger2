@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.taobao.sophix.SophixManager;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 
 public class InitializeService extends IntentService {

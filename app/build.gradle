@@ -15,10 +15,14 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('studydagger2keystore.jks')
-            storePassword "123456"
-            keyAlias "studydagger2"
-            keyPassword "123456"
+//            storeFile file('studydagger2keystore.jks')
+//            storePassword "123456"
+//            keyAlias "studydagger2"
+//            keyPassword "123456"
+            keyAlias 'key0'
+            keyPassword '123456'
+            storeFile file('C:/Users/signed/talkcloud.jks')
+            storePassword '123456'
         }
         release {
             storeFile file('studydagger2keystore.jks')
@@ -73,6 +77,9 @@ dependencies {
     compile rootProject.ext.dependencies["butterknife"]
     apt rootProject.ext.dependencies["butterknife-compiler"]
     compile rootProject.ext.dependencies["glide"]
+    compile rootProject.ext.dependencies["rxpermissions"]
+    compile rootProject.ext.dependencies["rxjava"]
+    compile rootProject.ext.dependencies["rxandroid"]
     //    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
