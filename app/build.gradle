@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
+//apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -29,40 +29,40 @@ android {
             storePassword "123456"
             keyAlias "studydagger2"
             keyPassword "123456"
-    }
-    buildTypes {
-        debug {
-            minifyEnabled false
+        }
+        buildTypes {
+            debug {
+                minifyEnabled false
 //            zipAlignEnabled false
 //            shrinkResources false
-            //前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
-        }
+                //前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.debug
+            }
 
-        release {
-            //混淆
-            minifyEnabled false
-            // 移除无用的resource文件
-//            shrinkResources false
-            //前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            //签名
-            signingConfig signingConfigs.release
-        }
+            release {
+                //混淆
+                minifyEnabled false
+                // 移除无用的resource文件
+            shrinkResources false
+                //前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                //签名
+                signingConfig signingConfigs.release
+            }
 
-    }
-    applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            def outputFile = output.outputFile
-            if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}-${buildTime()}.apk")
-                output.outputFile = new File(outputFile.parent, fileName)
+        }
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def outputFile = output.outputFile
+                if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                    def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}-${buildTime()}.apk")
+                    output.outputFile = new File(outputFile.parent, fileName)
+                }
             }
         }
-    }
 
-}
+    }
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -73,9 +73,9 @@ dependencies {
     //    compile 'com.android.support:appcompat-v7:25.3.1'
     compile rootProject.ext.dependencies["appcompat"]
     compile rootProject.ext.dependencies["dagger"]
-    compile rootProject.ext.dependencies["dagger-compiler"]
+    annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
     compile rootProject.ext.dependencies["butterknife"]
-    apt rootProject.ext.dependencies["butterknife-compiler"]
+    annotationProcessor  rootProject.ext.dependencies["butterknife-compiler"]
     compile rootProject.ext.dependencies["glide"]
     compile rootProject.ext.dependencies["rxpermissions"]
     compile rootProject.ext.dependencies["rxjava"]
@@ -84,6 +84,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }
+
 def buildTime() {
     return new Date().format("yyyy-MM-dd-HH-mm-ss", TimeZone.getTimeZone("UTC"))
 }

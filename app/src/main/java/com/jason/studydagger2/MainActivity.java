@@ -24,12 +24,16 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 
 public class MainActivity extends AppCompatActivity {
+    @Inject
+    ApiService apiService;
 
     private static final int REQUEST_ORIGINAL = 2;
     @BindView(R.id.query_patch_btn)
@@ -47,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        DaggerUserComponent.create().inject(this);
+        apiService.register();
         mText.setText("热更新之后啊");
         //获取SD卡的路径
         sdPath = Environment.getExternalStorageDirectory().getPath();
@@ -59,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         SophixManager.getInstance().queryAndLoadNewPatch();
         Toast.makeText(this, "热更新了呢呢呢", Toast.LENGTH_SHORT).show();
         RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA)
+        rxPermissions.requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                 .subscribe(new Consumer<Permission>() {
                     @Override
                     public void accept(Permission permission) throws Exception {
