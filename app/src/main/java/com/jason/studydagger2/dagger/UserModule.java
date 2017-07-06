@@ -1,4 +1,6 @@
-package com.jason.studydagger2;
+package com.jason.studydagger2.dagger;
+
+import com.jason.studydagger2.ApiService;
 
 import dagger.Module;
 import dagger.Provides;
@@ -9,7 +11,7 @@ import dagger.Provides;
 @Module
 public class UserModule {
     @Provides
-    ApiService provideApiService() {
+    public ApiService provideApiService() {
         return new ApiService();
     }
 }

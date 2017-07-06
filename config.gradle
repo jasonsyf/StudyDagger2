@@ -12,7 +12,7 @@ ext {
     def dependVersion = [
             constraint_layout: "1.0.2",
             support     : "25.3.1",
-            retrofit    : "2.2.0",
+            retrofit    : "2.3.0",
             okhttp      : "3.6.0",
             dagger2     : "2.9",
             butterknife : "8.2.1",
