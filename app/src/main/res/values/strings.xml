@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">StudyDagger2</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_home">主页</string>
+    <string name="title_dashboard">功能</string>
+    <string name="title_notifications">提示</string>
 </resources>

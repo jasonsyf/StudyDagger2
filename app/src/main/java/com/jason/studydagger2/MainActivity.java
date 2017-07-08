@@ -8,14 +8,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jason.studydagger2.dagger.DaggerUserComponent;
+import com.jason.studydagger2.widget.BottomNavigationViewHelper;
 import com.taobao.sophix.SophixManager;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -44,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     private static String TAG = "rxPermissions";
     @BindView(R.id.image_view)
     ImageView mImageView;
+    @BindView(R.id.navigation)
+    BottomNavigationView navigation;
     private String sdPath;//SD卡的路径
     private String picPath;//图片存储路径
 
@@ -54,6 +62,44 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         DaggerUserComponent.create().inject(this);
         apiService.register();
+        BottomNavigationViewHelper.disableShiftMode(navigation);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        Snackbar.make(navigation, "this is a navigationBar", Snackbar.LENGTH_SHORT).setAction("wozhidaole", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(MainActivity.this, "hahaha", Toast.LENGTH_SHORT).show();
+                            }
+                        }).show();
+                        break;
+                    case R.id.navigation_dashboard:
+                        break;
+                    case R.id.navigation_notifications:
+                        break;
+                    case R.id.navigation_notification:
+                        Snackbar.make(navigation, "我是底部导航栏", Snackbar.LENGTH_SHORT).setAction("耶耶", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(MainActivity.this, "嘿嘿嘿", Toast.LENGTH_SHORT).show();
+                            }
+                        }).setActionTextColor(getResources().getColor(R.color.colorAccent)).show();
+                        break;
+                    case R.id.navigation_dashboard1:
+                        Snackbar.make(navigation, "我是底部导航栏", Snackbar.LENGTH_SHORT).setAction("草", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(MainActivity.this, "123", Toast.LENGTH_SHORT).show();
+                            }
+                        }).setActionTextColor(getResources().getColor(R.color.colorAccent)).show();
+                        break;
+                }
+                return true;
+            }
+
+        });
         mText.setText("热更新之后啊");
         //获取SD卡的路径
         sdPath = Environment.getExternalStorageDirectory().getPath();

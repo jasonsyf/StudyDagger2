@@ -44,7 +44,7 @@ android {
                 //混淆
                 minifyEnabled false
                 // 移除无用的resource文件
-            shrinkResources false
+                shrinkResources false
                 //前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
                 //签名
@@ -69,13 +69,13 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.aliyun.ams:alicloud-android-hotfix:3.0.2'
     //    compile 'com.android.support:appcompat-v7:25.3.1'
     compile rootProject.ext.dependencies["appcompat"]
     compile rootProject.ext.dependencies["dagger"]
+    compile rootProject.ext.dependencies["design"]
     annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
     compile rootProject.ext.dependencies["butterknife"]
-    annotationProcessor  rootProject.ext.dependencies["butterknife-compiler"]
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     compile rootProject.ext.dependencies["glide"]
     compile rootProject.ext.dependencies["rxpermissions"]
     compile rootProject.ext.dependencies["rxjava"]
@@ -84,7 +84,9 @@ dependencies {
     compile rootProject.ext.dependencies["retrofit-converter-gson"]
     compile rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
     //    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.aliyun.ams:alicloud-android-hotfix:3.0.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:design:25.3.1'
     testCompile 'junit:junit:4.12'
 }
 
