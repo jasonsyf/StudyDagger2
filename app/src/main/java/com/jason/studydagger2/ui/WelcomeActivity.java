@@ -1,14 +1,14 @@
-package com.jason.studydagger2;
+package com.jason.studydagger2.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.jason.studydagger2.R;
 
 import java.util.Timer;
 import java.util.TimerTask;

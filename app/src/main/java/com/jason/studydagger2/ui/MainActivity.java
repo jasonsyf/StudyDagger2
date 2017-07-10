@@ -1,4 +1,4 @@
-package com.jason.studydagger2;
+package com.jason.studydagger2.ui;
 
 import android.Manifest;
 import android.content.Intent;
@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jason.studydagger2.ApiService;
+import com.jason.studydagger2.R;
 import com.jason.studydagger2.dagger.DaggerUserComponent;
 import com.jason.studydagger2.widget.BottomNavigationViewHelper;
 import com.taobao.sophix.SophixManager;

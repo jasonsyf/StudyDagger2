@@ -1,7 +1,6 @@
 package com.jason.studydagger2.dagger;
 
-import com.jason.studydagger2.MainActivity;
-import com.jason.studydagger2.dagger.UserModule;
+import com.jason.studydagger2.ui.MainActivity;
 
 import dagger.Component;
 

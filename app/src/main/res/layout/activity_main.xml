@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jason.studydagger2.MainActivity">
+    tools:context="com.jason.studydagger2.ui.MainActivity">
 
     <TextView
         android:id="@+id/text"
