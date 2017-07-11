@@ -20,9 +20,9 @@ import com.taobao.sophix.listener.PatchLoadStatusListener;
 import java.util.HashSet;
 import java.util.Set;
 
-
 /**
- * Created by Administrator on 2017/6/16 0016.
+ * Created by jason_sunyf on 2017/7/11.
+ * Email:yufeng.sun@21wendao.cn
  */
 
 public class MyApplication extends Application {

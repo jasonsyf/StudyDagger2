@@ -24,7 +24,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * Created by codeest on 2016/8/4.
+ * Created by jason_sunyf on 2017/7/11.
+ * Email:yufeng.sun@21wendao.cn
  */
 public class SystemUtil {
 

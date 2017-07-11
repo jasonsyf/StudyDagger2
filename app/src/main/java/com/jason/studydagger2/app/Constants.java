@@ -6,7 +6,8 @@ import android.os.Environment;
 import java.io.File;
 
 /**
- * Created by codeest on 2016/8/3.
+ * Created by jason_sunyf on 2017/7/11.
+ * Email:yufeng.sun@21wendao.cn
  */
 public class Constants {
 

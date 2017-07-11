@@ -12,9 +12,6 @@ import android.widget.Toast;
 import com.jason.studydagger2.R;
 import com.jason.studydagger2.base.BaseActivity;
 import com.jason.studydagger2.widget.BottomNavigationViewHelper;
-
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

@@ -7,10 +7,11 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-
 /**
- * Created by codeest on 2016/8/2.
+ * Created by jason_sunyf on 2017/7/11.
+ * Email:yufeng.sun@21wendao.cn
  */
+
 public class ImageLoader {
 
 //    public static void load(Context context, String url, ImageView iv) {    //使用Glide加载圆形ImageView(如头像)时，不要使用占位图

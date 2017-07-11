@@ -8,7 +8,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 /**
- * Created by codeest on 2016/8/2.
+ * Created by jason_sunyf on 2017/7/11.
+ * Email:yufeng.sun@21wendao.cn
  * 基于Rx的Presenter封装,控制订阅的生命周期
  */
 public class RxPresenter<T extends BaseView> implements BasePresenter<T> {

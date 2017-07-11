@@ -10,7 +10,10 @@ import android.widget.Toast;
 
 import com.taobao.sophix.SophixManager;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-
+/**
+ * Created by jason_sunyf on 2017/7/11.
+ * Email:yufeng.sun@21wendao.cn
+ */
 
 public class InitializeService extends IntentService {
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS

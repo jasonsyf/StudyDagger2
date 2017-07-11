@@ -11,7 +11,8 @@ import io.reactivex.subscribers.ResourceSubscriber;
 import retrofit2.HttpException;
 
 /**
- * Created by codeest on 2017/2/23.
+ * Created by jason_sunyf on 2017/7/11.
+ * Email:yufeng.sun@21wendao.cn
  */
 
 public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {

@@ -14,8 +14,10 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 /**
- * Created by codeest on 2016/8/3.
+ * Created by jason_sunyf on 2017/7/11.
+ * Email:yufeng.sun@21wendao.cn
  */
+
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     private static Thread.UncaughtExceptionHandler defaultHandler = null;

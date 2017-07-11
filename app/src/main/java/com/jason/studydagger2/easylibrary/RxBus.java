@@ -11,8 +11,10 @@ import io.reactivex.processors.FlowableProcessor;
 import io.reactivex.processors.PublishProcessor;
 
 /**
- * Created by codeest on 2016/8/2.
+ * Created by jason_sunyf on 2017/7/11.
+ * Email:yufeng.sun@21wendao.cn
  */
+
 public class RxBus {
     // 主题
     private final FlowableProcessor<Object> bus;

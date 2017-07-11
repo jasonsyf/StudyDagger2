@@ -18,7 +18,8 @@ import com.jason.studydagger2.util.toast.ToastUtil;
 import java.io.File;
 
 /**
- * Created by codeest on 16/10/10.
+ * Created by jason_sunyf on 2017/7/11.
+ * Email:yufeng.sun@21wendao.cn
  */
 
 public class UpdateService extends Service {

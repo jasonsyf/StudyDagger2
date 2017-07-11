@@ -4,7 +4,8 @@ import android.content.res.XmlResourceParser;
 import android.support.v4.util.ArrayMap;
 
 /**
- * Created by codeest on 16/12/30.
+ * Created by jason_sunyf on 2017/7/11.
+ * Email:yufeng.sun@21wendao.cn
  */
 
 public class XmlUtil {
