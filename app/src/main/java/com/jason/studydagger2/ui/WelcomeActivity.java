@@ -22,7 +22,6 @@ public class WelcomeActivity extends AppCompatActivity {
     ImageView mIvWelcomeBg;
     @BindView(R.id.tv_welcome_author)
     TextView mTvWelcomeAuthor;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,4 +58,6 @@ public class WelcomeActivity extends AppCompatActivity {
         Glide.clear(mIvWelcomeBg);
         super.onDestroy();
     }
+
+
 }

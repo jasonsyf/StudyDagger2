@@ -8,22 +8,6 @@
     android:orientation="vertical"
     tools:context="com.jason.studydagger2.ui.MainActivity">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="我是热更之后的 啦啦啦"/>
-    <Button
-        android:id="@+id/query_patch_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text"
-        android:text="加载patch"/>
-    <ImageView
-        android:id="@+id/image_view"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_below="@id/query_patch_btn"/>
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
@@ -32,4 +16,10 @@
         android:background="?android:attr/windowBackground"
         app:menu="@menu/navigation"
         android:layout_alignParentBottom="true"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@id/navigation">
+    </android.support.v4.view.ViewPager>
 </RelativeLayout>
