@@ -9,21 +9,27 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.jason.studydagger2.BuildConfig;
+import com.jason.studydagger2.app.MyApplication;
 import com.jason.studydagger2.util.logger.LogLevel;
 import com.jason.studydagger2.util.logger.Logger;
 import com.jason.studydagger2.util.toast.ToastLoading;
+
+import javax.inject.Inject;
 
 /**
  * Created by jason_sunyf on 2017/7/11.
  * Email:yufeng.sun@21wendao.cn
  */
 
-public class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends FragmentActivity  {
+
     private InputMethodManager mInputMethodManager;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+   ;
         if (BuildConfig.DEBUG) {
             Logger.init(getClass().getSimpleName()).setLogLevel(LogLevel.FULL).hideThreadInfo();
         } else {
@@ -39,20 +45,9 @@ public class BaseActivity extends FragmentActivity {
     @Override
     public void setContentView(View view) {
         super.setContentView(view);
-        initView();
-        setListener();
-        setData();
-    }
-
-    protected void initView() {
-    }
-
-    protected void setListener() {
 
     }
 
-    protected void setData() {
-    }
     //隐藏键盘
     protected void hideSoftKeyboard() {
         if (getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN && getCurrentFocus() != null) {
@@ -86,4 +81,6 @@ public class BaseActivity extends FragmentActivity {
             mAppLoading.close();
         }
     }
+
+
 }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jason.studydagger2.ui.MainActivity">
+    tools:context="com.jason.studydagger2.ui.main.activity.MainActivity">
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
@@ -20,6 +20,6 @@
         android:id="@+id/main_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignTop="@id/navigation">
+        android:layout_above="@id/navigation">
     </android.support.v4.view.ViewPager>
 </RelativeLayout>

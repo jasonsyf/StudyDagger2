@@ -1,29 +1,70 @@
-package com.jason.studydagger2.ui;
+package com.jason.studydagger2.ui.main.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import com.jason.studydagger2.R;
 import com.jason.studydagger2.base.BaseActivity;
+import com.jason.studydagger2.base.BaseFragment;
+import com.jason.studydagger2.base.BasePresenter;
+import com.jason.studydagger2.base.BaseView;
+import com.jason.studydagger2.ui.WxNews.fragment.WxNewsFragment;
+import com.jason.studydagger2.ui.main.adapter.ViewPagerAdapter;
+import com.jason.studydagger2.ui.test.TestFragment1;
+import com.jason.studydagger2.ui.test.TestFragment2;
+import com.jason.studydagger2.ui.test.TestFragment3;
+import com.jason.studydagger2.ui.test.TestFragment4;
 import com.jason.studydagger2.widget.BottomNavigationViewHelper;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity {
-    private static String TAG = "rxPermissions";
+public class MainActivity extends BaseActivity  {
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
     @BindView(R.id.main_viewpager)
     ViewPager mMainViewpager;
-//    private String sdPath;//SD卡的路径
-//    private String picPath;//图片存储路径
+    private MenuItem menuItem;
+    private WxNewsFragment mWxNewsFragment;
+    private TestFragment1 mTestFragment1;
+    private TestFragment2 mTestFragment2;
+    private TestFragment3 mTestFragment3;
+    private TestFragment4 mTestFragment4;
+    private List<BaseFragment> mFragments = new ArrayList<>();
+    //    private String sdPath;//SD卡的路径
 
+    BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    mMainViewpager.setCurrentItem(0);
+                    break;
+                case R.id.navigation_dashboard:
+                    mMainViewpager.setCurrentItem(1);
+                    break;
+                case R.id.navigation_notifications:
+                    mMainViewpager.setCurrentItem(2);
+                    break;
+                case R.id.navigation_notification:
+                    mMainViewpager.setCurrentItem(3);
+                    break;
+                case R.id.navigation_dashboard1:
+                    mMainViewpager.setCurrentItem(4);
+                    break;
+            }
+            return false;
+        }
+    };
+
+
+//    private String picPath;//图片存储路径
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,53 +75,53 @@ public class MainActivity extends BaseActivity {
 //        sdPath = Environment.getExternalStorageDirectory().getPath();
 //        picPath = sdPath + "/" + "temp.png";
 //        Log.e("sdPath1", sdPath);
+        setListener();
     }
 
-    @Override
+
     protected void setListener() {
+        setViewpager();
         BottomNavigationViewHelper.disableShiftMode(navigation);
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        mMainViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_home:
-                        Snackbar.make(navigation, "this is a navigationBar", Snackbar.LENGTH_SHORT).setAction("wozhidaole", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(MainActivity.this, "hahaha", Toast.LENGTH_SHORT).show();
-                            }
-                        }).show();
-                        break;
-                    case R.id.navigation_dashboard:
-                        break;
-                    case R.id.navigation_notifications:
-                        break;
-                    case R.id.navigation_notification:
-                        Snackbar.make(navigation, "我是底部导航栏", Snackbar.LENGTH_SHORT).setAction("耶耶", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(MainActivity.this, "嘿嘿嘿", Toast.LENGTH_SHORT).show();
-                            }
-                        }).setActionTextColor(getResources().getColor(R.color.colorAccent)).show();
-                        break;
-                    case R.id.navigation_dashboard1:
-                        Snackbar.make(navigation, "我是底部导航栏", Snackbar.LENGTH_SHORT).setAction("草", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(MainActivity.this, "123", Toast.LENGTH_SHORT).show();
-                            }
-                        }).setActionTextColor(getResources().getColor(R.color.colorAccent)).show();
-                        break;
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (menuItem != null) {
+                    menuItem.setChecked(false);
+                } else {
+                    navigation.getMenu().getItem(0).setChecked(false);
                 }
-                return true;
+                menuItem = navigation.getMenu().getItem(position);
+                menuItem.setChecked(true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
             }
         });
-    }
-
-    @Override
-    protected void setData() {
 
     }
+
+    private void setViewpager() {
+        mWxNewsFragment = new WxNewsFragment();
+        mTestFragment1 = new TestFragment1();
+        mTestFragment2 = new TestFragment2();
+        mTestFragment3 = new TestFragment3();
+        mTestFragment4 = new TestFragment4();
+        mFragments.add(mWxNewsFragment);
+        mFragments.add(mTestFragment1);
+        mFragments.add(mTestFragment2);
+        mFragments.add(mTestFragment3);
+        mFragments.add(mTestFragment4);
+        ViewPagerAdapter mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mFragments);
+        mMainViewpager.setAdapter(mAdapter);
+    }
+
 //
 //    @OnClick(R.id.query_patch_btn)
 //    public void onViewClicked() {

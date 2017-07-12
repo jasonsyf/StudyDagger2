@@ -85,6 +85,8 @@ dependencies {
     compile rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
     compile rootProject.ext.dependencies["okhttp-logging-interceptor"]
     compile rootProject.ext.dependencies["multidex"]
+    compile rootProject.ext.dependencies["cardview-v7"]
+
 
     //    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.aliyun.ams:alicloud-android-hotfix:3.0.2'

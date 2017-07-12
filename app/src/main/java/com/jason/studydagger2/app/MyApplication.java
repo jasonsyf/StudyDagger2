@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import com.jason.studydagger2.dagger.component.DaggerMyApplicationComponent;
 import com.jason.studydagger2.dagger.component.MyApplicationComponent;
 import com.jason.studydagger2.dagger.module.HttpModule;
+import com.jason.studydagger2.dagger.module.MyApplicationModule;
 import com.jason.studydagger2.service.InitializeService;
 import com.taobao.sophix.PatchStatus;
 import com.taobao.sophix.SophixManager;
@@ -34,12 +35,9 @@ public class MyApplication extends Application {
     public static int DIMEN_DPI = -1;
 
     private static MyApplication instance;
-
-    static {
-        AppCompatDelegate.setDefaultNightMode(
-                AppCompatDelegate.MODE_NIGHT_NO);
+    public static synchronized MyApplication getInstance() {
+        return instance;
     }
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -72,9 +70,7 @@ public class MyApplication extends Application {
         InitializeService.start(this);
     }
 
-    public static synchronized MyApplication getInstance() {
-        return instance;
-    }
+
 
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -125,8 +121,9 @@ public class MyApplication extends Application {
     public static MyApplicationComponent getAppComponent() {
         if (appComponent == null) {
             appComponent = DaggerMyApplicationComponent.builder()
+                    .myApplicationModule(new MyApplicationModule(getInstance()))
                     .httpModule(new HttpModule())
-                    .build();
+            .build();
         }
         return appComponent;
     }

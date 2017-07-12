@@ -1,4 +1,4 @@
-package com.jason.studydagger2.ui;
+package com.jason.studydagger2.ui.main.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
