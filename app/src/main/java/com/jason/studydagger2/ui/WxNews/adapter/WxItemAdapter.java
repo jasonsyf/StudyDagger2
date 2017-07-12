@@ -12,8 +12,9 @@ import android.widget.TextView;
 import com.jason.studydagger2.R;
 import com.jason.studydagger2.easylibrary.ImageLoader;
 import com.jason.studydagger2.mvpmodel.bean.WxNewsBean;
-import com.jason.studydagger2.widget.SquareImageView;
+import com.jason.studydagger2.widget.ItemTouchHelperAdapterCallBack;
 
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,7 +25,7 @@ import butterknife.ButterKnife;
  * Email:yufeng.sun@21wendao.cn
  */
 
-public class WxItemAdapter extends RecyclerView.Adapter<WxItemAdapter.ViewHolder> {
+public class WxItemAdapter extends RecyclerView.Adapter<WxItemAdapter.ViewHolder> implements ItemTouchHelperAdapterCallBack {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private List<WxNewsBean> mList;
@@ -51,6 +52,21 @@ public class WxItemAdapter extends RecyclerView.Adapter<WxItemAdapter.ViewHolder
     public int getItemCount() {
         return mList.size();
     }
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        //交换位置
+        Collections.swap(mList, fromPosition,toPosition);
+        notifyItemMoved(fromPosition,toPosition);
+    }
+
+    @Override
+    public void onItemDissmiss(int position) {
+        //移除数据
+        mList.remove(position);
+        notifyItemRemoved(position);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tv_wechat_item_title)

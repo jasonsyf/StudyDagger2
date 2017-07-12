@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.jason.studydagger2.mvpmodel.bean.WxNewsBean;
 import com.jason.studydagger2.mvppresenter.WxNewsPresenter;
 import com.jason.studydagger2.ui.WxNews.adapter.WxItemAdapter;
 import com.jason.studydagger2.util.toast.ToastUtil;
+import com.jason.studydagger2.widget.DragOrSwipeCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +40,7 @@ public class WxNewsFragment extends BaseFragment<WxNewsPresenter>  implements Wx
     WxItemAdapter mAdapter;
     List<WxNewsBean> mList;
     boolean isLoadingMore = false;
+    ItemTouchHelper mItemTouchHelper;
     @Override
     protected void initInject() {
         getFragmentComponent().inject(this);
@@ -55,12 +58,13 @@ public class WxNewsFragment extends BaseFragment<WxNewsPresenter>  implements Wx
     }
 
     private void initData() {
-
-
         mList=new ArrayList<>();
         mAdapter = new WxItemAdapter(getContext(), mList);
         mWxnewsRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
         mWxnewsRecycle.setAdapter(mAdapter);
+        ItemTouchHelper.Callback callback=new DragOrSwipeCallBack(mAdapter);
+        mItemTouchHelper=new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(mWxnewsRecycle);
         mWxnewsRecycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
