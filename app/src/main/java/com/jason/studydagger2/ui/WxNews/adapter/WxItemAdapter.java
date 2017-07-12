@@ -61,7 +61,6 @@ public class WxItemAdapter extends RecyclerView.Adapter<WxItemAdapter.ViewHolder
         TextView tvFrom;
         @BindView(R.id.iv_wechat_item_image)
         ImageView ivImage;
-
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
