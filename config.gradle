@@ -3,7 +3,7 @@ ext {
             compileSdkVersion: 25,
             buildToolsVersion: "25.0.3",
             applicationId:"com.jason.studydagger2",
-            minSdkVersion: 23,
+            minSdkVersion: 19,
             targetSdkVersion: 23,
             versionCode: 1,
             versionName: "1.1.0",

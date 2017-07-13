@@ -2,6 +2,7 @@ package com.jason.studydagger2.ui.WxNews.fragment;
 
 
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.jason.studydagger2.mvpmodel.bean.WxNewsBean;
 import com.jason.studydagger2.mvppresenter.WxNewsPresenter;
 import com.jason.studydagger2.ui.WxNews.adapter.WxItemAdapter;
 import com.jason.studydagger2.util.toast.ToastUtil;
+import com.jason.studydagger2.widget.DividerItemDecoration;
 import com.jason.studydagger2.widget.DragOrSwipeCallBack;
 
 import java.util.ArrayList;
@@ -61,17 +63,20 @@ public class WxNewsFragment extends BaseFragment<WxNewsPresenter>  implements Wx
         mList=new ArrayList<>();
         mAdapter = new WxItemAdapter(getContext(), mList);
         mWxnewsRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
-        mWxnewsRecycle.setAdapter(mAdapter);
         ItemTouchHelper.Callback callback=new DragOrSwipeCallBack(mAdapter);
         mItemTouchHelper=new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(mWxnewsRecycle);
+        mWxnewsRecycle.addItemDecoration(new DividerItemDecoration(Color.RED));
+        mWxnewsRecycle.setAdapter(mAdapter);
+        //上拉加载
         mWxnewsRecycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int lastVisibleItem = ((LinearLayoutManager) mWxnewsRecycle.getLayoutManager()).findLastVisibleItemPosition();
                 int totalItemCount = mWxnewsRecycle.getLayoutManager().getItemCount();
-                if (lastVisibleItem >= totalItemCount - 2 && dy > 0) {  //还剩2个Item时加载更多
+                //还剩2个Item时加载更多
+                if (lastVisibleItem >= totalItemCount - 2 && dy > 0) {
                     if(!isLoadingMore){
                         isLoadingMore = true;
                         mPresenter.getMoreWxNewsData();
@@ -99,9 +104,6 @@ public class WxNewsFragment extends BaseFragment<WxNewsPresenter>  implements Wx
         ToastUtil.showSnackBarShort(mWxnewsRecycle, msg);
     }
 
-    @Override
-    public void showLoading(String msg) {
-    }
 
     @Override
     public void stateError() {

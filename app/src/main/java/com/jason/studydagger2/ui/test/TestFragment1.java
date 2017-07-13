@@ -33,10 +33,7 @@ public class  TestFragment1 extends BaseFragment {
 
     }
 
-    @Override
-    public void showLoading(String msg) {
 
-    }
 
     @Override
     public void stateError() {

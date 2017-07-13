@@ -21,6 +21,7 @@ public class FragmentModule {
     }
 
     @Provides
+
     @FragmentScope
     public Activity provideActivity() {
         return fragment.getActivity();

@@ -9,8 +9,6 @@ public interface BaseView {
 
     void showErrorMsg(String msg);
 
-    void showLoading(String msg);
-
     //=======  State  =======
     void stateError();
 

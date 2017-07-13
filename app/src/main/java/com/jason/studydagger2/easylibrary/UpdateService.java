@@ -39,7 +39,7 @@ public class UpdateService extends Service {
                 unregisterReceiver(receiver);
                 intent = new Intent(Intent.ACTION_VIEW);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/download/geeknews.apk")),
+                intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/download/studyDagger2.apk")),
                         "application/vnd.android.package-archive");
                 startActivity(intent);
                 stopSelf();

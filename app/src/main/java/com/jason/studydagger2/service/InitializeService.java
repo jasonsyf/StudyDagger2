@@ -13,6 +13,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 /**
  * Created by jason_sunyf on 2017/7/11.
  * Email:yufeng.sun@21wendao.cn
+ * 做一些初始化的操作
  */
 
 public class InitializeService extends IntentService {

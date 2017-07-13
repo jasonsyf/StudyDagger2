@@ -13,6 +13,7 @@ import com.jason.studydagger2.R;
 import com.jason.studydagger2.easylibrary.ImageLoader;
 import com.jason.studydagger2.mvpmodel.bean.WxNewsBean;
 import com.jason.studydagger2.widget.ItemTouchHelperAdapterCallBack;
+import com.jason.studydagger2.widget.SquareImageView;
 
 import java.util.Collections;
 import java.util.List;
@@ -76,7 +77,7 @@ public class WxItemAdapter extends RecyclerView.Adapter<WxItemAdapter.ViewHolder
         @BindView(R.id.tv_wechat_item_from)
         TextView tvFrom;
         @BindView(R.id.iv_wechat_item_image)
-        ImageView ivImage;
+        SquareImageView ivImage;
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
