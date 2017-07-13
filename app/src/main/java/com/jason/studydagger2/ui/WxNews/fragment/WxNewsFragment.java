@@ -63,10 +63,11 @@ public class WxNewsFragment extends BaseFragment<WxNewsPresenter>  implements Wx
         mList=new ArrayList<>();
         mAdapter = new WxItemAdapter(getContext(), mList);
         mWxnewsRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
+        mWxnewsRecycle.setHasFixedSize(true);
         ItemTouchHelper.Callback callback=new DragOrSwipeCallBack(mAdapter);
         mItemTouchHelper=new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(mWxnewsRecycle);
-        mWxnewsRecycle.addItemDecoration(new DividerItemDecoration(Color.RED));
+        mWxnewsRecycle.addItemDecoration(new DividerItemDecoration(R.color.colorPrimaryDark,10,  10));
         mWxnewsRecycle.setAdapter(mAdapter);
         //上拉加载
         mWxnewsRecycle.addOnScrollListener(new RecyclerView.OnScrollListener() {

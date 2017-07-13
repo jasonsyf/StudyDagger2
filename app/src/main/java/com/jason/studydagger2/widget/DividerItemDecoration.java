@@ -17,10 +17,14 @@ import com.jason.studydagger2.base.contract.WxNewsContract;
 
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     private Paint mPaint;
+    private int dividerHeight;
+    private int offsetHeight;
 
-    public DividerItemDecoration(int color) {
+    public DividerItemDecoration(int color, int offsetHeight, int dividerHeight) {
+        this.dividerHeight = dividerHeight;
+        this.offsetHeight = offsetHeight;
         mPaint = new Paint();
-        mPaint.setColor(Color.RED);
+        mPaint.setColor(color);
     }
 
     @Override
@@ -29,11 +33,12 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         //获得每个item的位置
         int itemPosition = parent.getChildAdapterPosition(view);
         //第一个item不绘制分割线
-        if (itemPosition != 0) {
-            //设置间隔区域为10px，即可绘制区域为10px
-            outRect.set(0,0,0,50);
-        }
+//        if (itemPosition != 0) {
+        //设置间隔区域为10px，即可绘制区域为10px
+        outRect.set(0, 0, 0, offsetHeight);
+//        }
     }
+
     //重写onDraw ：在间隔区域里绘制一个矩形，即分割线
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
@@ -45,17 +50,16 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             //获取每个item的位置
             final View child = parent.getChildAt(i);
             int index = parent.getChildAdapterPosition(child);
-            if (index == 0) {
-                continue;
-            }
+//            if (index == 0) {
+//                continue;
+//            }
             //获取布局参数
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
 
-            final int mDivider = 10;
             final int left = parent.getPaddingLeft();
             final int top = child.getBottom() + params.bottomMargin + Math.round(ViewCompat.getTranslationY(child));
             final int right = parent.getWidth() - parent.getPaddingRight();
-            final int bottom = top + mDivider;
+            final int bottom = top + dividerHeight;
             c.drawRect(left, top, right, bottom, mPaint);
         }
     }
