@@ -1,12 +1,12 @@
 package com.jason.studydagger2.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
@@ -19,6 +19,9 @@ import com.jason.studydagger2.util.logger.LogLevel;
 import com.jason.studydagger2.util.logger.Logger;
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 
 /**
  * Created by jason_sunyf on 2017/7/11.
@@ -26,25 +29,28 @@ import javax.inject.Inject;
  */
 
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseView {
+    protected Activity mActivity;
+    protected Context mContext;
+    private Unbinder mUnBinder;
     @Inject
     protected T mPresenter;
 
-    protected FragmentComponent getFragmentComponent(){
+    protected FragmentComponent getFragmentComponent() {
         return DaggerFragmentComponent.builder()
                 .myApplicationComponent(MyApplication.getAppComponent())
                 .fragmentModule(getFragmentModule())
                 .build();
     }
 
-    protected FragmentModule getFragmentModule(){
+    protected FragmentModule getFragmentModule() {
         return new FragmentModule(this);
     }
 
     protected InputMethodManager inputMethodManager;
     protected Bundle mArguments;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         mArguments = savedInstanceState;
         if (BuildConfig.DEBUG) {
@@ -59,13 +65,15 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         initInject();
-
         super.onViewCreated(view, savedInstanceState);
+        mUnBinder = ButterKnife.bind(this, view);
+        initEventAndData();
         inputMethodManager = (InputMethodManager) getActivity().
                 getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     protected abstract void initInject();
+
     //隐藏键盘
     protected void hideSoftKeyboard() {
         if (getActivity().getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
@@ -76,10 +84,11 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
                 }
         }
     }
-
     @Override
-    public void onAttach(Context activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        mActivity = (Activity) context;
+        mContext = context;
+        super.onAttach(context);
     }
 
     /**
@@ -107,8 +116,9 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnBinder.unbind();
     }
-
+    protected abstract void initEventAndData();
 }

@@ -7,4 +7,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_tips"><![CDATA[<string name=\"error_tips\">糟糕！加载失败了ヽ(≧Д≦)ノ\\n
+    偷偷告诉你一些可能的原因：\\n1.惨不忍睹的网络环境\\n 2.服务器君的不定期抽风\\n 3.GeekNews现在心情不好拒绝服务喔~</string>]]></string>
 </resources>

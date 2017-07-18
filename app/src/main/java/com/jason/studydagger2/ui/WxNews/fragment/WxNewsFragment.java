@@ -55,7 +55,6 @@ public class WxNewsFragment extends BaseFragment<WxNewsPresenter>  implements Wx
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wx_news, container, false);
         unbinder = ButterKnife.bind(this, view);
-        initData();
         return view;
     }
 
@@ -65,6 +64,7 @@ public class WxNewsFragment extends BaseFragment<WxNewsPresenter>  implements Wx
         mWxnewsRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
         mWxnewsRecycle.setHasFixedSize(true);
         ItemTouchHelper.Callback callback=new DragOrSwipeCallBack(mAdapter);
+        //自定义ItemTouchHelper 绑定recyclerView
         mItemTouchHelper=new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(mWxnewsRecycle);
         mWxnewsRecycle.addItemDecoration(new DividerItemDecoration(R.color.colorPrimaryDark,10,  10));
@@ -98,6 +98,11 @@ public class WxNewsFragment extends BaseFragment<WxNewsPresenter>  implements Wx
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    protected void initEventAndData() {
+        initData();
     }
 
     @Override

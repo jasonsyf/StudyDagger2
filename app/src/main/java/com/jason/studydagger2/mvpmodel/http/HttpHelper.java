@@ -1,5 +1,6 @@
 package com.jason.studydagger2.mvpmodel.http;
 
+import com.jason.studydagger2.mvpmodel.bean.WelcomeBean;
 import com.jason.studydagger2.mvpmodel.bean.WxNewsBean;
 import com.jason.studydagger2.mvpmodel.http.response.WxNewsResponse;
 
@@ -13,6 +14,8 @@ import io.reactivex.Flowable;
  */
 
 public interface HttpHelper {
+    Flowable<WelcomeBean> fetchWelcomeInfo(String res);
+
     Flowable<WxNewsResponse<List<WxNewsBean>>> fetchWxNewsLList(int num, int page);
 
     Flowable<WxNewsResponse<List<WxNewsBean>>> fetchWechatSearchListInfo(int num, int page, String word);

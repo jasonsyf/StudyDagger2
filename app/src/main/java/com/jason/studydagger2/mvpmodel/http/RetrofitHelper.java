@@ -1,6 +1,7 @@
 package com.jason.studydagger2.mvpmodel.http;
 
 import com.jason.studydagger2.app.Constants;
+import com.jason.studydagger2.mvpmodel.bean.WelcomeBean;
 import com.jason.studydagger2.mvpmodel.bean.WxNewsBean;
 import com.jason.studydagger2.mvpmodel.http.api.WxApis;
 import com.jason.studydagger2.mvpmodel.http.response.WxNewsResponse;
@@ -32,5 +33,10 @@ public class RetrofitHelper implements HttpHelper {
     public Flowable<WxNewsResponse<List<WxNewsBean>>> fetchWechatSearchListInfo(int num, int page, String word) {
         return mWxApisService.getWXHotSearch(Constants.KEY_API,num, page, word);
     }
+    @Override
+    public Flowable<WelcomeBean> fetchWelcomeInfo(String res) {
+        return mWxApisService.getWelcomeInfo(res);
+    }
+
 
 }

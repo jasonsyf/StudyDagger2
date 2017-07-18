@@ -1,35 +1,62 @@
 package com.jason.studydagger2.base;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.jason.studydagger2.BuildConfig;
 import com.jason.studydagger2.app.MyApplication;
+import com.jason.studydagger2.dagger.component.ActivityComponent;
+import com.jason.studydagger2.dagger.component.DaggerActivityComponent;
+import com.jason.studydagger2.dagger.module.ActivityModule;
 import com.jason.studydagger2.util.logger.LogLevel;
 import com.jason.studydagger2.util.logger.Logger;
-import com.jason.studydagger2.util.toast.ToastLoading;
+import com.jason.studydagger2.util.toast.ToastUtil;
 
 import javax.inject.Inject;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by jason_sunyf on 2017/7/11.
  * Email:yufeng.sun@21wendao.cn
  */
 
-public abstract class BaseActivity extends FragmentActivity  {
+public abstract class BaseActivity<T extends BasePresenter> extends FragmentActivity implements BaseView {
 
     private InputMethodManager mInputMethodManager;
+    private Unbinder mUnbinder;
+    protected Activity mContext;
+    @Inject
+    protected T mPresenter;
 
-
+    protected ActivityComponent getActivityComponent(){
+        return  DaggerActivityComponent.builder()
+                .myApplicationComponent(MyApplication.getAppComponent())
+                .activityModule(getActivityModule())
+                .build();
+    }
+    protected ActivityModule getActivityModule(){
+        return new ActivityModule(this);
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-   ;
+        mUnbinder = ButterKnife.bind(this);
+        mContext=this;
+        initInject();
+        if (mPresenter != null) {
+            mPresenter.attachView(this);
+        }
+        MyApplication.getInstance().addActivity(this);
+        initEventAndData();
         if (BuildConfig.DEBUG) {
             Logger.init(getClass().getSimpleName()).setLogLevel(LogLevel.FULL).hideThreadInfo();
         } else {
@@ -48,6 +75,16 @@ public abstract class BaseActivity extends FragmentActivity  {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        if (mPresenter != null) {
+            mPresenter.detachView();
+        }
+        super.onDestroy();
+        MyApplication.getInstance().removeActivity(this);
+        mUnbinder.unbind();
+    }
+
     //隐藏键盘
     protected void hideSoftKeyboard() {
         if (getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN && getCurrentFocus() != null) {
@@ -56,31 +93,32 @@ public abstract class BaseActivity extends FragmentActivity  {
                     InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
-    public void showAlertWithMsg(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    @Override
+    public void showErrorMsg(String msg) {
+        ToastUtil.showSnackBarShort(((ViewGroup) findViewById(android.R.id.content)).getChildAt(0), msg);
     }
 
-    private ToastLoading mAppLoading;
+    @Override
+    public void stateError() {
 
-    public void showLoading() {
-        if (mAppLoading == null) {
-            mAppLoading = new ToastLoading(this);
-        }
-        mAppLoading.open();
     }
 
-    public void showLoading(int textResId) {
-        if (mAppLoading == null) {
-            mAppLoading = new ToastLoading(this);
-        }
-        mAppLoading.open(textResId);
+    @Override
+    public void stateEmpty() {
+
     }
 
-    public void hiddenLoading() {
-        if (mAppLoading != null) {
-            mAppLoading.close();
-        }
+    @Override
+    public void stateLoading() {
+
     }
 
+    @Override
+    public void stateMain() {
 
+    }
+
+    protected abstract void initInject();
+
+    protected abstract void initEventAndData();
 }

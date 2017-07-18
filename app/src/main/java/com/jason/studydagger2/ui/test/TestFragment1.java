@@ -59,4 +59,9 @@ public class  TestFragment1 extends BaseFragment {
     protected void initInject() {
 
     }
+
+    @Override
+    protected void initEventAndData() {
+
+    }
 }

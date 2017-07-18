@@ -9,6 +9,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jason.studydagger2.R;
+import com.jason.studydagger2.base.BaseActivity;
+import com.jason.studydagger2.base.BasePresenter;
+import com.jason.studydagger2.base.contract.main.WelcomeContract;
+import com.jason.studydagger2.mvpmodel.bean.WelcomeBean;
+import com.jason.studydagger2.mvppresenter.WelcomePresenter;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,7 +21,7 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends BaseActivity<WelcomePresenter> implements WelcomeContract.View {
 
     @BindView(R.id.iv_welcome_bg)
     ImageView mIvWelcomeBg;
@@ -59,5 +64,24 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    protected void initInject() {
+         getActivityComponent().inject(this);
+    }
 
+    @Override
+    protected void initEventAndData() {
+
+    }
+
+
+    @Override
+    public void showContent(WelcomeBean welcomeBean) {
+
+    }
+
+    @Override
+    public void jumpToMain() {
+
+    }
 }

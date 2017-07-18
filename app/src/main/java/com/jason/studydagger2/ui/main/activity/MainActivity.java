@@ -25,18 +25,18 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity  {
+public class MainActivity extends BaseActivity {
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
     @BindView(R.id.main_viewpager)
     ViewPager mMainViewpager;
     private MenuItem menuItem;
-    private WxNewsFragment mWxNewsFragment;
-    private TestFragment1 mTestFragment1;
-    private TestFragment2 mTestFragment2;
-    private TestFragment3 mTestFragment3;
-    private TestFragment4 mTestFragment4;
-    private List<BaseFragment> mFragments = new ArrayList<>();
+    WxNewsFragment mWxNewsFragment;
+    TestFragment1 mTestFragment1;
+    TestFragment2 mTestFragment2;
+    TestFragment3 mTestFragment3;
+    TestFragment4 mTestFragment4;
+    List<BaseFragment> mFragments = new ArrayList<>();
     //    private String sdPath;//SD卡的路径
 
     BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -70,16 +70,15 @@ public class MainActivity extends BaseActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
 //        //获取SD卡的路径
-//        sdPath = Environment.getExternalStorageDirectory().getPath();
-//        picPath = sdPath + "/" + "temp.png";
-//        Log.e("sdPath1", sdPath);
-        setListener();
     }
 
+    @Override
+    protected void initInject() {
+    }
 
-    protected void setListener() {
+    @Override
+    protected void initEventAndData() {
         setViewpager();
         BottomNavigationViewHelper.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -104,7 +103,6 @@ public class MainActivity extends BaseActivity  {
             public void onPageScrollStateChanged(int state) {
             }
         });
-
     }
 
     private void setViewpager() {
@@ -121,83 +119,5 @@ public class MainActivity extends BaseActivity  {
         ViewPagerAdapter mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mFragments);
         mMainViewpager.setAdapter(mAdapter);
     }
-
-//
-//    @OnClick(R.id.query_patch_btn)
-//    public void onViewClicked() {
-//        SophixManager.getInstance().queryAndLoadNewPatch();
-//        Toast.makeText(this, "热更新了呢呢呢", Toast.LENGTH_SHORT).show();
-//        RxPermissions rxPermissions = new RxPermissions(this);
-//        rxPermissions.requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
-//                .subscribe(new Consumer<Permission>() {
-//                    @Override
-//                    public void accept(Permission permission) throws Exception {
-//                        if (permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-//                            if (permission.granted) {
-//                                // 用户已经同意该权限
-//                                Toast.makeText(MainActivity.this, "用户已经同意该权限", Toast.LENGTH_SHORT).show();
-//                            } else if (permission.shouldShowRequestPermissionRationale) {
-//                                // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
-//                                Toast.makeText(MainActivity.this, "用户拒绝了该权限", Toast.LENGTH_SHORT).show();
-//                            } else {
-//                                // 用户拒绝了该权限，并且选中『不再询问』，提醒用户手动打开权限
-//                                Toast.makeText(MainActivity.this, "权限被拒绝，请在设置里面开启相应权限，若无相应权限会影响使用", Toast.LENGTH_SHORT).show();
-//                            }
-//                        } else {
-//                            if (permission.granted) {
-//                                // 用户已经同意该权限
-//                                Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                                Uri uri = Uri.fromFile(new File(picPath));
-//                                //为拍摄的图片指定一个存储的路径
-//                                intent2.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-//                                startActivityForResult(intent2, REQUEST_ORIGINAL);
-//                                Toast.makeText(MainActivity.this, "用户已经同意该权限", Toast.LENGTH_SHORT).show();
-//                            } else if (permission.shouldShowRequestPermissionRationale) {
-//                                // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
-//                                Toast.makeText(MainActivity.this, "用户拒绝了该权限", Toast.LENGTH_SHORT).show();
-//                            } else {
-//                                // 用户拒绝了该权限，并且选中『不再询问』，提醒用户手动打开权限
-//                                Toast.makeText(MainActivity.this, "权限被拒绝，请在设置里面开启相应权限，若无相应权限会影响使用", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                        }
-//
-//                    }
-//                });
-//
-//    }
-
-    /**
-     * 返回应用时回调方法
-     */
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (resultCode == RESULT_OK) {
-//            if (resultCode == REQUEST_ORIGINAL) {//对应第二种方法
-//                /**
-//                 * 这种方法是通过内存卡的路径进行读取图片，所以的到的图片是拍摄的原图
-//                 */
-//                FileInputStream fis = null;
-//                try {
-//                    Log.e("sdPath2", picPath);
-//                    //把图片转化为字节流
-//                    fis = new FileInputStream(picPath);
-//                    //把流转化图片
-//                    Bitmap bitmap = BitmapFactory.decodeStream(fis);
-//                    mImageView.setImageBitmap(bitmap);
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                } finally {
-//                    try {
-//                        fis.close();//关闭流
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }
-//    }
 }
 
