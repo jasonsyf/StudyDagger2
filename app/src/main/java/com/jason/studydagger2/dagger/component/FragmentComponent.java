@@ -3,7 +3,7 @@ package com.jason.studydagger2.dagger.component;
 import android.app.Activity;
 import com.jason.studydagger2.dagger.module.FragmentModule;
 import com.jason.studydagger2.dagger.scope.FragmentScope;
-import com.jason.studydagger2.ui.WxNews.fragment.WxNewsFragment;
+import com.jason.studydagger2.ui.wxnews.fragment.WxNewsFragment;
 
 import dagger.Component;
 

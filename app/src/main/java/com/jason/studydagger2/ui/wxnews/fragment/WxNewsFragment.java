@@ -1,9 +1,9 @@
-package com.jason.studydagger2.ui.WxNews.fragment;
+package com.jason.studydagger2.ui.wxnews.fragment;
 
 
 import android.app.Fragment;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,9 +15,13 @@ import android.view.ViewGroup;
 import com.jason.studydagger2.R;
 import com.jason.studydagger2.base.BaseFragment;
 import com.jason.studydagger2.base.contract.WxNewsContract;
+import com.jason.studydagger2.easylibrary.CommonSubscriber;
 import com.jason.studydagger2.mvpmodel.bean.WxNewsBean;
 import com.jason.studydagger2.mvppresenter.WxNewsPresenter;
-import com.jason.studydagger2.ui.WxNews.adapter.WxItemAdapter;
+import com.jason.studydagger2.ui.wxnews.adapter.WxItemAdapter;
+import com.jason.studydagger2.util.RxUtil;
+import com.jason.studydagger2.util.diffutils.DiffCallBack;
+import com.jason.studydagger2.util.diffutils.DiffUtil;
 import com.jason.studydagger2.util.toast.ToastUtil;
 import com.jason.studydagger2.widget.DividerItemDecoration;
 import com.jason.studydagger2.widget.DragOrSwipeCallBack;
@@ -28,11 +32,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WxNewsFragment extends BaseFragment<WxNewsPresenter>  implements WxNewsContract.View {
+public class WxNewsFragment extends BaseFragment<WxNewsPresenter> implements WxNewsContract.View {
 
     @BindView(R.id.wxnews_recycle)
     RecyclerView mWxnewsRecycle;
@@ -43,6 +50,7 @@ public class WxNewsFragment extends BaseFragment<WxNewsPresenter>  implements Wx
     List<WxNewsBean> mList;
     boolean isLoadingMore = false;
     ItemTouchHelper mItemTouchHelper;
+
     @Override
     protected void initInject() {
         getFragmentComponent().inject(this);
@@ -59,16 +67,15 @@ public class WxNewsFragment extends BaseFragment<WxNewsPresenter>  implements Wx
     }
 
     private void initData() {
-        mList=new ArrayList<>();
+        mList = new ArrayList<>();
         mAdapter = new WxItemAdapter(getContext(), mList);
         mWxnewsRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
         mWxnewsRecycle.setHasFixedSize(true);
-        ItemTouchHelper.Callback callback=new DragOrSwipeCallBack(mAdapter);
+        ItemTouchHelper.Callback callback = new DragOrSwipeCallBack(mAdapter);
         //自定义ItemTouchHelper 绑定recyclerView
-        mItemTouchHelper=new ItemTouchHelper(callback);
+        mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(mWxnewsRecycle);
-        mWxnewsRecycle.addItemDecoration(new DividerItemDecoration(R.color.colorPrimaryDark,10,  10));
-        mWxnewsRecycle.setAdapter(mAdapter);
+        mWxnewsRecycle.addItemDecoration(new DividerItemDecoration(R.color.colorPrimaryDark, 10, 10));
         //上拉加载
         mWxnewsRecycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -78,19 +85,20 @@ public class WxNewsFragment extends BaseFragment<WxNewsPresenter>  implements Wx
                 int totalItemCount = mWxnewsRecycle.getLayoutManager().getItemCount();
                 //还剩2个Item时加载更多
                 if (lastVisibleItem >= totalItemCount - 2 && dy > 0) {
-                    if(!isLoadingMore){
+                    if (!isLoadingMore) {
                         isLoadingMore = true;
                         mPresenter.getMoreWxNewsData();
                     }
                 }
             }
         });
-        mSwipeLayout.setOnRefreshListener( new SwipeRefreshLayout.OnRefreshListener() {
+        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mPresenter.getWxNewsData();
             }
         });
+        mWxnewsRecycle.setAdapter(mAdapter);
         stateLoading();
     }
 
@@ -113,7 +121,7 @@ public class WxNewsFragment extends BaseFragment<WxNewsPresenter>  implements Wx
 
     @Override
     public void stateError() {
-        if(mSwipeLayout.isRefreshing()) {
+        if (mSwipeLayout.isRefreshing()) {
             mSwipeLayout.setRefreshing(false);
         }
     }
@@ -136,13 +144,14 @@ public class WxNewsFragment extends BaseFragment<WxNewsPresenter>  implements Wx
 
     @Override
     public void showContent(List<WxNewsBean> wxNewsBeanList) {
-        if(mSwipeLayout.isRefreshing()) {
+        if (mSwipeLayout.isRefreshing()) {
             mSwipeLayout.setRefreshing(false);
         }
         stateMain();
         mList.clear();
         mList.addAll(wxNewsBeanList);
         mAdapter.notifyDataSetChanged();
+
     }
 
     @Override

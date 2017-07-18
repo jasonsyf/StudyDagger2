@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.jason.studydagger2.ui.WxNews.fragment.WxNewsFragment">
+                tools:context="com.jason.studydagger2.ui.wxnews.fragment.WxNewsFragment">
 <TextView
     android:id="@+id/title"
     android:layout_width="match_parent"

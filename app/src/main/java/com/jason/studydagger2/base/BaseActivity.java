@@ -32,7 +32,6 @@ import butterknife.Unbinder;
 public abstract class BaseActivity<T extends BasePresenter> extends FragmentActivity implements BaseView {
 
     private InputMethodManager mInputMethodManager;
-    private Unbinder mUnbinder;
     protected Activity mContext;
     @Inject
     protected T mPresenter;
@@ -49,7 +48,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends FragmentActi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mUnbinder = ButterKnife.bind(this);
         mContext=this;
         initInject();
         if (mPresenter != null) {
@@ -82,7 +80,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends FragmentActi
         }
         super.onDestroy();
         MyApplication.getInstance().removeActivity(this);
-        mUnbinder.unbind();
     }
 
     //隐藏键盘

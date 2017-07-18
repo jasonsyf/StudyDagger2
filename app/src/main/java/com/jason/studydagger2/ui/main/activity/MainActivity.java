@@ -9,9 +9,7 @@ import android.view.MenuItem;
 import com.jason.studydagger2.R;
 import com.jason.studydagger2.base.BaseActivity;
 import com.jason.studydagger2.base.BaseFragment;
-import com.jason.studydagger2.base.BasePresenter;
-import com.jason.studydagger2.base.BaseView;
-import com.jason.studydagger2.ui.WxNews.fragment.WxNewsFragment;
+import com.jason.studydagger2.ui.wxnews.fragment.WxNewsFragment;
 import com.jason.studydagger2.ui.main.adapter.ViewPagerAdapter;
 import com.jason.studydagger2.ui.test.TestFragment1;
 import com.jason.studydagger2.ui.test.TestFragment2;
@@ -68,8 +66,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        super.onCreate(savedInstanceState);
 //        //获取SD卡的路径
     }
 
@@ -117,7 +116,9 @@ public class MainActivity extends BaseActivity {
         mFragments.add(mTestFragment3);
         mFragments.add(mTestFragment4);
         ViewPagerAdapter mAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mFragments);
-        mMainViewpager.setAdapter(mAdapter);
+        if (mMainViewpager != null) {
+            mMainViewpager.setAdapter(mAdapter);
+        }
     }
 }
 

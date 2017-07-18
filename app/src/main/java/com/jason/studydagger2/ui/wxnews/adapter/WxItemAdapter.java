@@ -1,4 +1,4 @@
-package com.jason.studydagger2.ui.WxNews.adapter;
+package com.jason.studydagger2.ui.wxnews.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jason.studydagger2.R;
