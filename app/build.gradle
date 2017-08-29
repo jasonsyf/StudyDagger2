@@ -15,14 +15,14 @@ android {
 
     signingConfigs {
         debug {
-//            storeFile file('studydagger2keystore.jks')
-//            storePassword "123456"
-//            keyAlias "studydagger2"
-//            keyPassword "123456"
-            keyAlias 'key0'
-            keyPassword '123456'
-            storeFile file('C:/Users/signed/talkcloud.jks')
-            storePassword '123456'
+            storeFile file('studydagger2keystore.jks')
+            storePassword "123456"
+            keyAlias "studydagger2"
+            keyPassword "123456"
+//            keyAlias 'key0'
+//            keyPassword '123456'
+//            storeFile file('C:/Users/signed/talkcloud.jks')
+//            storePassword '123456'
         }
         release {
             storeFile file('studydagger2keystore.jks')
@@ -86,13 +86,12 @@ dependencies {
     compile rootProject.ext.dependencies["okhttp-logging-interceptor"]
     compile rootProject.ext.dependencies["multidex"]
     compile rootProject.ext.dependencies["cardview-v7"]
-
-
     //    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.aliyun.ams:alicloud-android-hotfix:3.0.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
     testCompile 'junit:junit:4.12'
+    compile files('libs/SocialSDK_QQ_Simplify.jar')
 }
 
 def buildTime() {

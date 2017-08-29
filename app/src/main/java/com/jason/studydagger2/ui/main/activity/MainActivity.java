@@ -1,5 +1,6 @@
 package com.jason.studydagger2.ui.main.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -16,6 +17,7 @@ import com.jason.studydagger2.ui.test.TestFragment2;
 import com.jason.studydagger2.ui.test.TestFragment3;
 import com.jason.studydagger2.ui.test.TestFragment4;
 import com.jason.studydagger2.widget.BottomNavigationViewHelper;
+import com.umeng.socialize.UMShareAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +72,11 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         super.onCreate(savedInstanceState);
 //        //获取SD卡的路径
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

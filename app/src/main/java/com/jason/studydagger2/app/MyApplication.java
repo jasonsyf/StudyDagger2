@@ -16,6 +16,9 @@ import com.jason.studydagger2.service.InitializeService;
 import com.taobao.sophix.PatchStatus;
 import com.taobao.sophix.SophixManager;
 import com.taobao.sophix.listener.PatchLoadStatusListener;
+import com.umeng.socialize.Config;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -67,6 +70,11 @@ public class MyApplication extends Application {
         getScreenSize();
         //在子线程中完成其他初始化
         InitializeService.start(this);
+        UMShareAPI.get(this);
+        Config.DEBUG = true;
+        PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
+        PlatformConfig.setQQZone("1106306325", "RfJraplKOwKgyn8E");
+        PlatformConfig.setSinaWeibo("1239979837", "e4239b342a820f223795d58390a83b66", "http://sns.whalecloud.com");
     }
 
 

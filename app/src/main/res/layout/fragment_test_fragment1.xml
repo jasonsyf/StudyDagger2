@@ -1,15 +1,45 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.jason.studydagger2.ui.test.TestFragment1">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.jason.studydagger2.ui.test.TestFragment1">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <Button
+        android:id="@+id/qq_share"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="@color/colorAccent"
-        android:gravity="center"
-        android:text="TestFragment1"/>
+        android:layout_height="50dp"
+        android:text="分享到QQ"/>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/qqZone_share"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="分享到QQ空间"/>
+
+    <Button
+        android:id="@+id/wx_share"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="分享到微信"/>
+
+    <Button
+        android:id="@+id/wx_circle_share"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="分享到微信朋友圈"/>
+
+    <Button
+        android:id="@+id/weibo_share"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="分享到微博"/>
+
+    <Button
+        android:id="@+id/all_share"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="多功能面板分享"/>
+
+
+</LinearLayout>
