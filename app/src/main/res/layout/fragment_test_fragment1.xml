@@ -40,6 +40,21 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="多功能面板分享"/>
+    <Button
+        android:id="@+id/qq_login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="qq登录"/>
+    <Button
+        android:id="@+id/wx_login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="微信登录"/>
+    <Button
+        android:id="@+id/weibo_login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="微博登录"/>
 
 
 </LinearLayout>
