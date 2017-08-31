@@ -1,15 +1,28 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.jason.studydagger2.ui.test.TestFragment3">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              tools:context="com.jason.studydagger2.ui.test.TestFragment3">
+<android.support.design.widget.TabLayout
+    android:id="@+id/tab_layout"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    app:tabMode="fixed"
+    app:tabIndicatorColor="@android:color/holo_green_light"
+    app:tabSelectedTextColor="@android:color/holo_red_dark"
+    app:tabTextColor="@android:color/black"
+    app:tabIndicatorHeight="4dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+</android.support.design.widget.TabLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="@color/colorAccent"
-        android:gravity="center"
-        android:text="TestFragment3"/>
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-</FrameLayout>
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
