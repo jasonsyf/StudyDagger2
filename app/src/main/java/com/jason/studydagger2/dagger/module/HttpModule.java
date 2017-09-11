@@ -2,7 +2,9 @@ package com.jason.studydagger2.dagger.module;
 
 import com.jason.studydagger2.BuildConfig;
 import com.jason.studydagger2.app.Constants;
+import com.jason.studydagger2.dagger.qualifier.UpLoadFileUrl;
 import com.jason.studydagger2.dagger.qualifier.WxNewsUrl;
+import com.jason.studydagger2.mvpmodel.http.api.UpLoadFileApis;
 import com.jason.studydagger2.mvpmodel.http.api.WxApis;
 import com.jason.studydagger2.util.SystemUtil;
 
@@ -47,6 +49,13 @@ public class HttpModule {
     @Provides
     @WxNewsUrl
     Retrofit provideWxNewsRetrofit(Retrofit.Builder builder, OkHttpClient client) {
+        return createRetrofit(builder, client, WxApis.HOST);
+    }
+
+    @Singleton
+    @Provides
+    @UpLoadFileUrl
+    Retrofit provideUpLoadFileRetrofit(Retrofit.Builder builder, OkHttpClient client) {
         return createRetrofit(builder, client, WxApis.HOST);
     }
 
@@ -117,6 +126,11 @@ public class HttpModule {
     @Provides
     WxApis provideWxService(@WxNewsUrl Retrofit retrofit) {
         return retrofit.create(WxApis.class);
+    }
+
+    @Provides
+    UpLoadFileApis provideUpLoadFileService(@UpLoadFileUrl Retrofit retrofit) {
+        return retrofit.create(UpLoadFileApis.class);
     }
     private Retrofit createRetrofit(Retrofit.Builder builder, OkHttpClient client, String url) {
         return builder

@@ -13,15 +13,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jason.studydagger2.R;
+import com.jason.studydagger2.app.MyApplication;
 import com.jason.studydagger2.base.BaseFragment;
 import com.jason.studydagger2.base.contract.WxNewsContract;
+import com.jason.studydagger2.dao.WxNewsDaoBean;
 import com.jason.studydagger2.easylibrary.CommonSubscriber;
 import com.jason.studydagger2.mvpmodel.bean.WxNewsBean;
 import com.jason.studydagger2.mvppresenter.WxNewsPresenter;
 import com.jason.studydagger2.ui.wxnews.adapter.WxItemAdapter;
 import com.jason.studydagger2.util.RxUtil;
+import com.jason.studydagger2.util.SystemUtil;
 import com.jason.studydagger2.util.diffutils.DiffCallBack;
 import com.jason.studydagger2.util.diffutils.DiffUtil;
+import com.jason.studydagger2.util.logger.Logger;
 import com.jason.studydagger2.util.toast.ToastUtil;
 import com.jason.studydagger2.widget.DividerItemDecoration;
 import com.jason.studydagger2.widget.DragOrSwipeCallBack;
@@ -50,12 +54,32 @@ public class WxNewsFragment extends BaseFragment<WxNewsPresenter> implements WxN
     List<WxNewsBean> mList;
     boolean isLoadingMore = false;
     ItemTouchHelper mItemTouchHelper;
+    List<WxNewsDaoBean> mWxNewsDaoBeanList;
 
     @Override
+
     protected void initInject() {
         getFragmentComponent().inject(this);
         mPresenter.attachView(this);
-        mPresenter.getWxNewsData();
+        if (SystemUtil.isNetworkConnected()) {
+
+            mPresenter.getWxNewsData();
+            Logger.i("data","mlistNet"+mList.toString());
+        } else {
+            mWxNewsDaoBeanList = MyApplication.getDaoSessionInstant().getWxNewsDaoBeanDao().loadAll();
+            mList.clear();
+            for (int i = 0,length=mWxNewsDaoBeanList.size(); i <length ; i++) {
+                WxNewsBean wxNewsBean = new WxNewsBean();
+                wxNewsBean.setCtime(mWxNewsDaoBeanList.get(0).getCtime());
+                wxNewsBean.setDescription(mWxNewsDaoBeanList.get(0).getDescription());
+                wxNewsBean.setPicUrl(mWxNewsDaoBeanList.get(0).getPicUrl());
+                wxNewsBean.setTitle(mWxNewsDaoBeanList.get(0).getTitle());
+                wxNewsBean.setUrl(mWxNewsDaoBeanList.get(0).getUrl());
+                mList.add(wxNewsBean);
+            }
+            Logger.i("data","mlistCache"+mList.toString());
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

@@ -4,6 +4,8 @@ package com.jason.studydagger2.mvppresenter;
 import com.jason.studydagger2.app.Constants;
 import com.jason.studydagger2.base.RxPresenter;
 import com.jason.studydagger2.base.contract.WxNewsContract;
+import com.jason.studydagger2.dao.DaoSession;
+import com.jason.studydagger2.dao.WxNewsDaoBean;
 import com.jason.studydagger2.easylibrary.CommonSubscriber;
 import com.jason.studydagger2.easylibrary.RxBus;
 import com.jason.studydagger2.mvpmodel.bean.WxNewsBean;
@@ -29,7 +31,7 @@ import io.reactivex.functions.Predicate;
 public class WxNewsPresenter extends RxPresenter<WxNewsContract.View> implements WxNewsContract.Presenter {
 
     private static final int NUM_OF_PAGE = 20;
-
+    DaoSession mDaoSession;
     private int currentPage = 1;
     private String queryStr = null;
 
@@ -64,6 +66,15 @@ public class WxNewsPresenter extends RxPresenter<WxNewsContract.View> implements
                     @Override
                     public void onNext(List<WxNewsBean> wxNewsBeanList) {
                         mView.showContent(wxNewsBeanList);
+                        for (int i = 0; i <wxNewsBeanList.size(); i++) {
+                            WxNewsDaoBean wxNewsDaoBean=new WxNewsDaoBean(null,
+                                    wxNewsBeanList.get(i).getCtime(),
+                                    wxNewsBeanList.get(i).getTitle(),
+                                    wxNewsBeanList.get(i).getDescription(),
+                                    wxNewsBeanList.get(i).getPicUrl(),
+                                    wxNewsBeanList.get(i).getUrl());
+                            mDaoSession.getWxNewsDaoBeanDao().insert(wxNewsDaoBean);
+                        }
                     }
                 }));
 

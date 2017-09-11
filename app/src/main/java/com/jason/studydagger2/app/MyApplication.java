@@ -3,6 +3,7 @@ package com.jason.studydagger2.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.multidex.MultiDex;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -12,6 +13,8 @@ import com.jason.studydagger2.dagger.component.DaggerMyApplicationComponent;
 import com.jason.studydagger2.dagger.component.MyApplicationComponent;
 import com.jason.studydagger2.dagger.module.HttpModule;
 import com.jason.studydagger2.dagger.module.MyApplicationModule;
+import com.jason.studydagger2.dao.DaoMaster;
+import com.jason.studydagger2.dao.DaoSession;
 import com.jason.studydagger2.service.InitializeService;
 import com.taobao.sophix.PatchStatus;
 import com.taobao.sophix.SophixManager;
@@ -35,7 +38,7 @@ public class MyApplication extends Application {
     public static int SCREEN_HEIGHT = -1;
     public static float DIMEN_RATE = -1.0F;
     public static int DIMEN_DPI = -1;
-
+    private static DaoSession daoSession;
     private static MyApplication instance;
     public static synchronized MyApplication getInstance() {
         return instance;
@@ -70,6 +73,7 @@ public class MyApplication extends Application {
         getScreenSize();
         //在子线程中完成其他初始化
         InitializeService.start(this);
+        setUpDataBase();
         UMShareAPI.get(this);
         Config.DEBUG = true;
         PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
@@ -77,7 +81,20 @@ public class MyApplication extends Application {
         PlatformConfig.setSinaWeibo("1239979837", "e4239b342a820f223795d58390a83b66", "http://sns.whalecloud.com");
     }
 
+    private void setUpDataBase() {
+        //创建数据库wxnews.db
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "wxnews.db", null);
+        //获取可写数据库
+        SQLiteDatabase sqLiteDatabase = helper.getWritableDatabase();
+        //获取数据库对象
+        DaoMaster daoMaster = new DaoMaster(sqLiteDatabase);
+        //获取Dao对象管理器
+        daoSession = daoMaster.newSession();
+    }
 
+    public static DaoSession getDaoSessionInstant() {
+        return daoSession;
+    }
 
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);

@@ -17,7 +17,8 @@ ext {
             dagger2     : "2.9",
             butterknife : "8.2.1",
             blockcanary : "1.2.1",
-            leakcanary  : "1.4-beta2"
+            leakcanary  : "1.4-beta2",
+            greendao    :  "3.2.2"
     ]
     dependencies = [
             "appcompat"                 : "com.android.support:appcompat-v7:${dependVersion.support}",
@@ -63,6 +64,7 @@ ext {
             "logger"                    : "com.orhanobut:logger:1.15",
             "fragmentation"             : "me.yokeyword:fragmentation:0.10.4",
             "crashreport"               : "com.tencent.bugly:crashreport:latest.release",
+            "greendao"                  : "org.greenrobot:greendao:${dependVersion.greendao}",
 
             //canary
             "blockcanary-android"       : "com.github.moduth:blockcanary-android:${dependVersion.blockcanary}",
