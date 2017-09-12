@@ -1,7 +1,8 @@
 package com.jason.studydagger2.mvpmodel.bean;
 
 /**
- * Created by codeest on 16/8/15.
+ * Created by Jason_Sunyf on 2017/9/12 0012.
+ * Email： jason_sunyf@163.com
  */
 
 public class WelcomeBean {

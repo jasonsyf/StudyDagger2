@@ -10,8 +10,8 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by jason_sunyf on 2017/7/11.
- * Email:yufeng.sun@21wendao.cn
+ * Created by Jason_Sunyf on 2017/9/12 0012.
+ * Email： jason_sunyf@163.com
  */
 @Module
 public class MyApplicationModule {
