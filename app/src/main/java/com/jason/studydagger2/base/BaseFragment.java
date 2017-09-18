@@ -17,6 +17,10 @@ import com.jason.studydagger2.dagger.component.FragmentComponent;
 import com.jason.studydagger2.dagger.module.FragmentModule;
 import com.jason.studydagger2.util.logger.LogLevel;
 import com.jason.studydagger2.util.logger.Logger;
+import com.squareup.leakcanary.RefWatcher;
+
+import java.sql.Ref;
+
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
@@ -119,6 +123,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     public void onDestroyView() {
         super.onDestroyView();
         mUnBinder.unbind();
+        RefWatcher refWatcher = MyApplication.getRefWatcher(mContext);
+        refWatcher.watch(this);
     }
     protected abstract void initEventAndData();
 }

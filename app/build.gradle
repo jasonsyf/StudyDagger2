@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
-//apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -12,6 +12,8 @@ android {
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         testInstrumentationRunner rootProject.ext.android.testInstrumentationRunner
+        multiDexEnabled true
+
     }
 
     signingConfigs {
@@ -20,10 +22,6 @@ android {
             storePassword "123456"
             keyAlias "studydagger2"
             keyPassword "123456"
-//            keyAlias 'key0'
-//            keyPassword '123456'
-//            storeFile file('C:/Users/signed/talkcloud.jks')
-//            storePassword '123456'
         }
         release {
             storeFile file('studydagger2keystore.jks')
@@ -33,44 +31,50 @@ android {
         }
     }
 
-        greendao {
-            //版本号，升级时可配置
-            schemaVersion 1
-            daoPackage 'com.jason.studydagger2.dao'
-            targetGenDir 'src/main/java'
-        }
+    greendao {
+        //版本号，升级时可配置
+        schemaVersion 1
+        daoPackage 'com.jason.studydagger2.dao'
+        targetGenDir 'src/main/java'
+    }
 
-        buildTypes {
-            debug {
-                minifyEnabled false
+    buildTypes {
+        debug {
+            minifyEnabled false
 //            zipAlignEnabled false
 //            shrinkResources false
-                //前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                signingConfig signingConfigs.debug
-            }
-
-            release {
-                //混淆
-                minifyEnabled false
-                // 移除无用的resource文件
-                shrinkResources false
-                //前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                //签名
-                signingConfig signingConfigs.release
-            }
-
+            //前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
-        applicationVariants.all { variant ->
-            variant.outputs.each { output ->
-                def outputFile = output.outputFile
-                if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                    def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}.apk")
-                    output.outputFile = new File(outputFile.parent, fileName)
-                }
+
+        release {
+            //混淆
+            minifyEnabled false
+            // 移除无用的resource文件
+            shrinkResources false
+            //前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //签名
+            signingConfig signingConfigs.release
+        }
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}.apk")
+                output.outputFile = new File(outputFile.parent, fileName)
             }
         }
+    }
 
 }
 dependencies {
@@ -102,6 +106,10 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     testCompile 'junit:junit:4.12'
     compile files('libs/SocialSDK_QQ_Simplify.jar')
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+
 }
 
 def buildTime() {
